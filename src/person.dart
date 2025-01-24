@@ -1,9 +1,5 @@
 import 'dart:io';
 
-// TODO - Separate Client & Employee from Person
-typedef Client = Person;
-typedef Employee = Person;
-
 class Person {
   int id;
   String first_name, last_name, email_address;
