@@ -1,21 +1,21 @@
 /**
- * @typedef Client
+ * @typedef Employee
  * @type {object}
- * @property {number} id - client id
- * @property {string} first_name - client first name
- * @property {string} last_name - client last name
- * @property {string} email_address - client email address
- * @property {boolean} visible - is the client visible
+ * @property {number} id - employee id
+ * @property {string} first_name - employee first name
+ * @property {string} last_name - employee last name
+ * @property {string} email_address - employee email address
+ * @property {boolean} visible - is the employee visible
  */
 
 /**
  * On load function
  * @returns {void}
  */
-const getClients = () => {
-    fetch("/data/clients")
+const getEmployees = () => {
+    fetch("/data/employees")
         .then(async (res) => {
-            /** @type {Client[]} */
+            /** @type {Employee[]} */
             const data = await res.json()
             updateTable(data)
         })
@@ -25,29 +25,29 @@ const getClients = () => {
 }
 
 /**
- * find client id for edit and remove client
- * @param {number} id - the client id
+ * find employee id for edit and remove employee
+ * @param {number} id - the employee id
  * @param {string} option - the dialog that is being set
  */
 const displayDialog = (id, option) => {
     document.getElementById(`${option}-id`).value = id
     if (option == "remove") {
-        removeClient.showModal()
+        removeEmployee.showModal()
     }
     if (option == "edit") {
-        editClient.showModal()
+        editEmployee.showModal()
     }
 }
 
 /**
- * Updates the client table
- * @param {Client[]} data - array of client data
+ * Updates the employee table
+ * @param {Employee[]} data - array of employee data
  * @returns {void}
  */
 const updateTable = (data) => {
-    let tbody = document.getElementById("client-table")
+    let tbody = document.getElementById("employee-table")
     let index = 1
-    data.forEach(client => {
+    data.forEach(employee => {
         let row = document.createElement("tr")
         let id = document.createElement("td")
         let fn = document.createElement("td")
@@ -65,10 +65,10 @@ const updateTable = (data) => {
         rb.setAttribute("class", "redButton")
         rb.setAttribute("onclick", `displayDialog(${index}, "remove")`)
 
-        id.innerHTML = client.id
-        fn.innerHTML = client.first_name
-        ln.innerHTML = client.last_name
-        ea.innerHTML = client.email_address
+        id.innerHTML = employee.id
+        fn.innerHTML = employee.first_name
+        ln.innerHTML = employee.last_name
+        ea.innerHTML = employee.email_address
         eb.innerHTML = "Edit"
         rb.innerHTML = "Remove"
         bc.append(eb, rb)
@@ -83,9 +83,9 @@ const updateTable = (data) => {
  * @returns {void}
  */
 const clearModal = () => {
-    newClient.close()
-    removeClient.close()
-    editClient.close()
+    newEmployee.close()
+    removeEmployee.close()
+    editEmployee.close()
     document.getElementById("new-fn").value = ""
     document.getElementById("new-ln").value = ""
     document.getElementById("new-ea").value = ""
