@@ -20,11 +20,7 @@ class Router {
     ..get("/data/<name>/update", updateDataHandler)
     ..get("/data/<name>/remove", removeDataHandler);
 
-  /**
-   * Start the [Server]
-   * 
-   * @param [int] port
-   */
+  /// Start the [Server]
   Future<void> start([int port = 8080]) async {
     await this.verifyDB();
     final cascade = Cascade().add(_router.call);
