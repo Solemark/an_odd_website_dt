@@ -21,6 +21,7 @@ class Router {
     ..get("/data/<name>/remove", removeDataHandler);
 
   Future<void> start() async {
+    await this.verifyDB();
     final int port = 8080;
     final cascade = Cascade().add(_router.call);
     final server = await shelf_io.serve(
@@ -29,5 +30,12 @@ class Router {
       port,
     );
     print('Serving at http://${server.address.host}:${server.port}');
+  }
+
+  Future<void> verifyDB() async {
+    if (!await Directory("data").exists()) await Directory("data").create();
+    if (!await File("data/clients.csv").exists()) await File("data/clients.csv").create();
+    if (!await File("data/employees.csv").exists()) await File("data/employees.csv").create();
+    if (!await File("data/test.csv").exists()) await File("data/test.csv").create();
   }
 }
