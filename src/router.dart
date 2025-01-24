@@ -1,6 +1,5 @@
 import 'dart:io';
-import 'client_handler.dart';
-import 'employee_handler.dart';
+import 'data_handler.dart';
 import 'icon_handler.dart';
 import 'script_handler.dart';
 import 'style_handler.dart';
@@ -16,14 +15,10 @@ class Router {
     ..get("/<name>", webpageHandler)
     ..get("/styles/<name>", styleHandler)
     ..get("/scripts/<name>", scriptHandler)
-    ..get("/data/clients", getClientHandler)
-    ..get("/data/clients/new", newClientHandler)
-    ..get("/data/clients/update", updateClientHandler)
-    ..get("/data/clients/remove", removeClientHandler)
-    ..get("/data/employees", getEmployeeHandler)
-    ..get("/data/employees/new", newEmployeeHandler)
-    ..get("/data/employees/update", updateEmployeeHandler)
-    ..get("/data/employees/remove", removeEmployeeHandler);
+    ..get("/data/<name>", getDataHandler)
+    ..get("/data/<name>/new", newDataHandler)
+    ..get("/data/<name>/update", updateDataHandler)
+    ..get("/data/<name>/remove", removeDataHandler);
 
   Future<void> start() async {
     final int port = 8080;
