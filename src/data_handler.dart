@@ -11,7 +11,7 @@ Future<Response> getDataHandler(Request req, String name) async {
 
 Future<Response> newDataHandler(Request req, String name) async {
   final Map<String, String> res = await decodeResponse(req);
-  final List<Person> data = await getPersonData(name);
+  List<Person> data = await getPersonData(name);
   data.add(Person(data.length + 1, res['first_name']!, res['last_name']!, res['email_address']!, true));
   await writePersonData(name, data);
   return sendRedirect("/$name");
@@ -19,7 +19,7 @@ Future<Response> newDataHandler(Request req, String name) async {
 
 Future<Response> updateDataHandler(Request req, String name) async {
   final Map<String, String> res = await decodeResponse(req);
-  final List<Person> data = await getPersonData(name);
+  List<Person> data = await getPersonData(name);
   data[int.parse(res["id"]!) - 1] =
       Person(int.parse(res["id"]!), res["first_name"]!, res["last_name"]!, res["email_address"]!, true);
   await writePersonData(name, data);
@@ -28,7 +28,7 @@ Future<Response> updateDataHandler(Request req, String name) async {
 
 Future<Response> removeDataHandler(Request req, String name) async {
   final Map<String, String> res = await decodeResponse(req);
-  final List<Person> data = await getPersonData(name);
+  List<Person> data = await getPersonData(name);
   data[int.parse(res["id"]!) - 1].visible = false;
   await writePersonData(name, data);
   return sendRedirect("/$name");
