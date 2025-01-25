@@ -1,15 +1,12 @@
 import 'dart:io';
 import 'data_handler.dart';
-import 'icon_handler.dart';
-import 'script_handler.dart';
-import 'style_handler.dart';
 import 'webpage_handler.dart';
 import 'package:shelf/shelf.dart';
-import 'package:shelf/shelf_io.dart' as shelf_io;
-import 'package:shelf_router/shelf_router.dart' as shelf_router;
+import 'package:shelf/shelf_io.dart';
+import 'package:shelf_router/shelf_router.dart';
 
-class Router {
-  final _router = shelf_router.Router()
+class WebServer {
+  final Router _router = Router()
     ..get("/", indexHandler)
     ..get("/favicon.ico", iconHandler)
     ..get("/<name>", webpageHandler)
@@ -23,8 +20,8 @@ class Router {
   /// Start the [Server]
   Future<void> start([int port = 8080]) async {
     await this.verifyDB();
-    final cascade = Cascade().add(_router.call);
-    final server = await shelf_io.serve(
+    final Cascade cascade = Cascade().add(_router.call);
+    final HttpServer server = await serve(
       logRequests().addHandler(cascade.handler),
       InternetAddress.anyIPv4,
       port,
