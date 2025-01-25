@@ -46,7 +46,7 @@ const updateTable = (data) => {
  */
 const sendSetting = (setting) => {
     const form = document.createElement("form")
-    form.method = "GET"
+    form.method = "POST"
     form.action = "/data/settings/update"
 
     let name = document.createElement("input")

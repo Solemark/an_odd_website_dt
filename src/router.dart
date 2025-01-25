@@ -7,6 +7,8 @@ import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
 
 class WebServer {
+  final List<String> db = ["clients", "employees", "settings"];
+
   final Router _router = Router()
     ..get("/", indexHandler)
     ..get("/favicon.ico", iconHandler)
@@ -14,11 +16,11 @@ class WebServer {
     ..get("/styles/<name>", styleHandler)
     ..get("/scripts/<name>", scriptHandler)
     ..get("/data/settings", getSettingsHandler)
-    ..get("/data/settings/update", updateSettingHandler)
+    ..post("/data/settings/update", updateSettingHandler)
     ..get("/data/<name>", getDataHandler)
-    ..get("/data/<name>/new", newDataHandler)
-    ..get("/data/<name>/update", updateDataHandler)
-    ..get("/data/<name>/remove", removeDataHandler);
+    ..post("/data/<name>/new", newDataHandler)
+    ..post("/data/<name>/update", updateDataHandler)
+    ..post("/data/<name>/remove", removeDataHandler);
 
   /// Start the [Server]
   Future<void> start([int port = 8080]) async {
@@ -35,7 +37,7 @@ class WebServer {
   /// Verify that DB data files exist
   Future<void> verifyDB() async {
     if (!await Directory("data").exists()) await Directory("data").create();
-    ["clients", "employees", "settings"].forEach((item) async {
+    this.db.forEach((item) async {
       if (!await File("data/$item.csv").exists()) await File("data/$item.csv").create();
     });
   }

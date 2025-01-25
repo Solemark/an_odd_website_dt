@@ -1,23 +1,17 @@
-import 'dart:io';
 import 'package:shelf/shelf.dart';
-import 'headers.dart';
+import 'helpers.dart';
 
 /// Get the homepage (index.html)
-Future<Response> indexHandler(Request req) async =>
-    Response(200, headers: htmlHeaders, body: await File("static/index.html").readAsString());
+Future<Response> indexHandler(Request req) async => sendHTML("index");
 
 /// Get the webpage favicon (favicon.ico)
-Future<Response> iconHandler(Request req) async =>
-    Response(200, headers: imageHeaders, body: await File("static/favicon.ico").readAsBytes());
+Future<Response> iconHandler(Request req) async => sendIcon();
 
 /// Get a webpage dynamically (webpage_name.html)
-Future<Response> webpageHandler(Request req, String name) async =>
-    Response(200, headers: htmlHeaders, body: await File("static/$name.html").readAsString());
+Future<Response> webpageHandler(Request req, String name) async => sendHTML(name);
 
 /// Get a style page (style_name.css)
-Future<Response> styleHandler(Request req, String name) async =>
-    Response(200, headers: cssHeaders, body: await File("static/styles/$name.css").readAsString());
+Future<Response> styleHandler(Request req, String name) async => sendStyle(name);
 
 /// Get a script file (script_name.js)
-Future<Response> scriptHandler(Request req, String name) async =>
-    Response(200, headers: jsHeaders, body: await File("static/scripts/$name.js").readAsString());
+Future<Response> scriptHandler(Request req, String name) async => sendJS(name);
