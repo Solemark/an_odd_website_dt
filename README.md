@@ -3,3 +3,7 @@
 run with:
 
     dart run main.dart
+
+build with:
+
+    ./build.sh
