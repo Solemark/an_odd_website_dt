@@ -12,5 +12,5 @@ if [ -f main.exe ]; then
   mv ./main.exe build/server
 fi
 
-# clone static files into the same directory as exectuable
+# clone static files into the same directory as executable
 cp -r ./static build/static
