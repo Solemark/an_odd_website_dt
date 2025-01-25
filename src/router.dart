@@ -37,8 +37,8 @@ class WebServer {
   /// Verify that DB data files exist
   Future<void> verifyDB() async {
     if (!await Directory("data").exists()) await Directory("data").create();
-    this.db.forEach((item) async {
+    for (String item in this.db) {
       if (!await File("data/$item.csv").exists()) await File("data/$item.csv").create();
-    });
+    }
   }
 }
