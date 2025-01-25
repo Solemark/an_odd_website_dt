@@ -9,7 +9,7 @@ fi
 dart compile exe main.dart
 # move the executable into the build folder
 if [ -f main.exe ]
-  then mv ./main.exe build/server
+  then mv ./main.exe build/main
 fi
 
 # clone static files into the same directory as executable
